@@ -23,8 +23,8 @@ class RegisterRequest extends FormRequest
     {
         return [
             'name' => ["required"],
-            'email' => ["required" , "email" , "unique:users"],
-            'password' => ["required" , "min:4"],
+            'email' => ["required", "email", "unique:users"],
+            'password' => ["required", "confirmed", "min:8", "regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]+$/", "not_contain:password", "different:email", "max:255"],
         ];
     }
 }

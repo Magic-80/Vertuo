@@ -4,10 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\LoginRequest;
 use App\Http\Requests\RegisterRequest;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
+
 class AuthController extends Controller
 {
     public function login()
@@ -17,13 +17,14 @@ class AuthController extends Controller
 
     public function dologin(LoginRequest $request)
     {
-        $credentials = $request->validated();
+        $credicals = $request->validated();
 
-        if(Auth::attempt($credentials))
+        if(Auth::attempt($credicals))
         {
             $request->session()->regenerate();
-            return redirect()->intended(route('customer.index'));
+            return redirect()->intended(route("customer.index"));
         }
+
     }
 
     public function register()
@@ -38,7 +39,7 @@ class AuthController extends Controller
             'email' => $request->email,
             'password' => Hash::make($request->password),
         ]);
-
+    
         Auth::login($user);
         return redirect()->intended(route("customer.index"));
     }
